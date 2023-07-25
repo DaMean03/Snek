@@ -146,6 +146,7 @@ function displayGameOver() {
 }
 function resetGame() {
   score = 0;
+  scoreText.textContent = score;
   xVelocity = unitSize;
   yVelocity = 0;
   snake = [
