@@ -1,2 +1,2 @@
 # Snek
-Game of sneak
+Game of snake
