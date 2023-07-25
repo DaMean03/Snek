@@ -41,6 +41,7 @@ function gameStart() {
 function nextTick() {
   if (running) {
     setTimeout(() => {
+      resetBtn.disabled = true;
       clearBoard();
       drawFood();
       moveSnake();
@@ -50,6 +51,7 @@ function nextTick() {
     }, 75);
   } else {
     displayGameOver();
+    resetBtn.disabled = false;
   }
 }
 function clearBoard() {
