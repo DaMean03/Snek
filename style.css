@@ -8,6 +8,7 @@
   font-family: "Permament Maker", cursive;
   font-size: 100px;
 }
+#startBtn,
 #resetBtn {
   font-family: "Permament Maker", cursive;
   font-size: 22px;
@@ -16,4 +17,5 @@
   border: 4px solid;
   border-radius: 15px;
   cursor: pointer;
+  margin-bottom: 10px;
 }

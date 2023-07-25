@@ -2,6 +2,7 @@ const gameBoard = document.querySelector("#gameBoard");
 const context = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetBtn = document.querySelector("#resetBtn");
+const startBtn = document.querySelector("#startBtn");
 const gameWidth = gameBoard.width;
 const gameHeigth = gameBoard.height;
 
@@ -27,8 +28,7 @@ let snake = [
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
-
-gameStart();
+startBtn.addEventListener("click", gameStart);
 
 function gameStart() {
   running = true;
@@ -36,6 +36,7 @@ function gameStart() {
   createFood();
   drawFood();
   nextTick();
+  startBtn.disabled = true;
 }
 function nextTick() {
   if (running) {
@@ -152,5 +153,6 @@ function resetGame() {
     { x: unitSize, y: 0 },
     { x: 0, y: 0 },
   ];
-  gameStart();
+  clearBoard();
+  startBtn.disabled = false;
 }
