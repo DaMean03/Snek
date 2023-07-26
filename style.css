@@ -43,15 +43,15 @@ body {
 }
 #controls {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   background-color: gray;
   border: 2px solid;
   border-radius: 50%;
   display: none;
 }
 .btn {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   position: absolute;
   border: none;
   border-radius: 0;
