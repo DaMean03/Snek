@@ -29,6 +29,12 @@ const unitSize = 25;
 let running = false;
 let xVelocity = unitSize;
 let yVelocity = 0;
+let gameSpeed;
+if (isMobile()) {
+  gameSpeed = 120;
+} else {
+  gameSpeed = 100;
+}
 let foodX;
 let foodY;
 let score = 0;
@@ -65,7 +71,7 @@ function nextTick() {
       drawSnake();
       checkGameOver();
       nextTick();
-    }, 75);
+    }, gameSpeed);
   } else {
     displayGameOver();
     resetBtn.disabled = false;
@@ -93,6 +99,17 @@ function moveSnake() {
   snake.unshift(head);
   if (snake[0].x == foodX && snake[0].y == foodY) {
     score += 1;
+    if (isMobile()) {
+      if (gameSpeed > 80) {
+        gameSpeed -= 2;
+      }
+    } else {
+      if (gameSpeed > 60) {
+        gameSpeed -= 2;
+      }
+    }
+
+    console.log(gameSpeed);
     scoreText.textContent = score;
     createFood();
   } else {
@@ -110,7 +127,6 @@ function drawSnake() {
 function changeDirection(event) {
   const keyPressed = event.keyCode;
   const buttonClicked = event.target;
-  console.log(keyPressed);
   const LEFT = [37, document.querySelector(".left")];
   const UP = [38, document.querySelector(".top")];
   const RIGHT = [39, document.querySelector(".right")];
@@ -122,19 +138,23 @@ function changeDirection(event) {
   const goingLeft = xVelocity == -unitSize;
 
   switch (true) {
-    case keyPressed == LEFT[0] || (buttonClicked == LEFT[1] && !goingRight):
+    case (keyPressed == LEFT[0] && !goingRight) ||
+      (buttonClicked == LEFT[1] && !goingRight):
       xVelocity = -unitSize;
       yVelocity = 0;
       break;
-    case keyPressed == UP[0] || (buttonClicked == UP[1] && !goingDown):
+    case (keyPressed == UP[0] && !goingDown) ||
+      (buttonClicked == UP[1] && !goingDown):
       xVelocity = 0;
       yVelocity = -unitSize;
       break;
-    case keyPressed == RIGHT[0] || (buttonClicked == RIGHT[1] && !goingLeft):
+    case (keyPressed == RIGHT[0] && !goingLeft) ||
+      (buttonClicked == RIGHT[1] && !goingLeft):
       xVelocity = unitSize;
       yVelocity = 0;
       break;
-    case keyPressed == DOWN[0] || (buttonClicked == DOWN[1] && !goingUp):
+    case (keyPressed == DOWN[0] && !goingUp) ||
+      (buttonClicked == DOWN[1] && !goingUp):
       xVelocity = 0;
       yVelocity = unitSize;
       break;
@@ -164,6 +184,7 @@ function displayGameOver() {
 }
 function resetGame() {
   score = 0;
+  gameSpeed = 100;
   scoreText.textContent = score;
   xVelocity = unitSize;
   yVelocity = 0;
