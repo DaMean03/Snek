@@ -29,7 +29,13 @@ if (isMobile()) {
     { x: 0, y: 0 },
   ];
   mobileControls.style.display = "block";
-  const deviceWidth = window.innerWidth;
+  let deviceWidth = window.innerWidth;
+  if (
+    typeof window.chrome === "object" &&
+    navigator.appVersion.indexOf("Edge") === -1
+  ) {
+    deviceWidth = window.outerWidth;
+  }
   gameBoard.width = Math.floor((deviceWidth - 26) / unitSize) * unitSize;
   gameBoard.height = Math.floor((deviceWidth - 26) / unitSize) * unitSize;
 } else {
@@ -43,6 +49,7 @@ if (isMobile()) {
     { x: 0, y: 0 },
   ];
 }
+
 const gameWidth = gameBoard.width;
 const gameHeigth = gameBoard.height;
 let running = false;
