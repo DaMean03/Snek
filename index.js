@@ -11,40 +11,46 @@ function isMobile() {
     /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
   return regex.test(navigator.userAgent);
 }
-if (isMobile()) {
-  mobileControls.style.display = "block";
-  const deviceWidth = window.innerWidth;
-  gameBoard.width = Math.floor((deviceWidth - 6) / 25) * 25;
-  gameBoard.height = Math.floor((deviceWidth - 6) / 25) * 25;
-}
-const gameWidth = gameBoard.width;
-const gameHeigth = gameBoard.height;
 
 const boardBackground = "white";
 const snakeColor = "lightgreen";
 const snakeBorder = "black";
 const foodColor = "red";
 
-const unitSize = 25;
+let unitSize;
+let gameSpeed;
+let snake;
+if (isMobile()) {
+  gameSpeed = 150;
+  unitSize = 20;
+  snake = [
+    { x: unitSize * 2, y: 0 },
+    { x: unitSize, y: 0 },
+    { x: 0, y: 0 },
+  ];
+  mobileControls.style.display = "block";
+  const deviceWidth = window.innerWidth;
+  gameBoard.width = Math.floor((deviceWidth - 6) / unitSize) * unitSize;
+  gameBoard.height = Math.floor((deviceWidth - 6) / unitSize) * unitSize;
+} else {
+  gameSpeed = 100;
+  unitSize = 25;
+  snake = [
+    { x: unitSize * 4, y: 0 },
+    { x: unitSize * 3, y: 0 },
+    { x: unitSize * 2, y: 0 },
+    { x: unitSize, y: 0 },
+    { x: 0, y: 0 },
+  ];
+}
+const gameWidth = gameBoard.width;
+const gameHeigth = gameBoard.height;
 let running = false;
 let xVelocity = unitSize;
 let yVelocity = 0;
-let gameSpeed;
-if (isMobile()) {
-  gameSpeed = 120;
-} else {
-  gameSpeed = 100;
-}
 let foodX;
 let foodY;
 let score = 0;
-let snake = [
-  { x: unitSize * 4, y: 0 },
-  { x: unitSize * 3, y: 0 },
-  { x: unitSize * 2, y: 0 },
-  { x: unitSize, y: 0 },
-  { x: 0, y: 0 },
-];
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
@@ -101,14 +107,13 @@ function moveSnake() {
     score += 1;
     if (isMobile()) {
       if (gameSpeed > 80) {
-        gameSpeed -= 2;
+        gameSpeed -= 5;
       }
     } else {
       if (gameSpeed > 60) {
         gameSpeed -= 2;
       }
     }
-
     console.log(gameSpeed);
     scoreText.textContent = score;
     createFood();
@@ -183,18 +188,27 @@ function displayGameOver() {
   running = false;
 }
 function resetGame() {
+  if (isMobile()) {
+    gameSpeed = 150;
+    snake = [
+      { x: unitSize * 2, y: 0 },
+      { x: unitSize, y: 0 },
+      { x: 0, y: 0 },
+    ];
+  } else {
+    gameSpeed = 100;
+    snake = [
+      { x: unitSize * 4, y: 0 },
+      { x: unitSize * 3, y: 0 },
+      { x: unitSize * 2, y: 0 },
+      { x: unitSize, y: 0 },
+      { x: 0, y: 0 },
+    ];
+  }
   score = 0;
-  gameSpeed = 100;
   scoreText.textContent = score;
   xVelocity = unitSize;
   yVelocity = 0;
-  snake = [
-    { x: unitSize * 4, y: 0 },
-    { x: unitSize * 3, y: 0 },
-    { x: unitSize * 2, y: 0 },
-    { x: unitSize, y: 0 },
-    { x: 0, y: 0 },
-  ];
   clearBoard();
   startBtn.disabled = false;
 }
