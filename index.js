@@ -3,6 +3,20 @@ const context = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetBtn = document.querySelector("#resetBtn");
 const startBtn = document.querySelector("#startBtn");
+const mobileControls = document.querySelector("#controls");
+const mobileButtons = document.querySelectorAll(".btn");
+
+function isMobile() {
+  const regex =
+    /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  return regex.test(navigator.userAgent);
+}
+if (isMobile()) {
+  mobileControls.style.display = "block";
+  const deviceWidth = window.innerWidth;
+  gameBoard.width = Math.floor((deviceWidth - 6) / 25) * 25;
+  gameBoard.height = Math.floor((deviceWidth - 6) / 25) * 25;
+}
 const gameWidth = gameBoard.width;
 const gameHeigth = gameBoard.height;
 
@@ -29,6 +43,9 @@ let snake = [
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
 startBtn.addEventListener("click", gameStart);
+mobileButtons.forEach((button) =>
+  button.addEventListener("click", changeDirection)
+);
 
 function gameStart() {
   running = true;
@@ -92,11 +109,12 @@ function drawSnake() {
 }
 function changeDirection(event) {
   const keyPressed = event.keyCode;
+  const buttonClicked = event.target;
   console.log(keyPressed);
-  const LEFT = 37;
-  const UP = 38;
-  const RIGHT = 39;
-  const DOWN = 40;
+  const LEFT = [37, document.querySelector(".left")];
+  const UP = [38, document.querySelector(".top")];
+  const RIGHT = [39, document.querySelector(".right")];
+  const DOWN = [40, document.querySelector(".bottom")];
 
   const goingUp = yVelocity == -unitSize;
   const goingDown = yVelocity == unitSize;
@@ -104,19 +122,19 @@ function changeDirection(event) {
   const goingLeft = xVelocity == -unitSize;
 
   switch (true) {
-    case keyPressed == LEFT && !goingRight:
+    case keyPressed == LEFT[0] || (buttonClicked == LEFT[1] && !goingRight):
       xVelocity = -unitSize;
       yVelocity = 0;
       break;
-    case keyPressed == UP && !goingDown:
+    case keyPressed == UP[0] || (buttonClicked == UP[1] && !goingDown):
       xVelocity = 0;
       yVelocity = -unitSize;
       break;
-    case keyPressed == RIGHT && !goingLeft:
+    case keyPressed == RIGHT[0] || (buttonClicked == RIGHT[1] && !goingLeft):
       xVelocity = unitSize;
       yVelocity = 0;
       break;
-    case keyPressed == DOWN && !goingUp:
+    case keyPressed == DOWN[0] || (buttonClicked == DOWN[1] && !goingUp):
       xVelocity = 0;
       yVelocity = unitSize;
       break;
