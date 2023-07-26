@@ -30,8 +30,8 @@ if (isMobile()) {
   ];
   mobileControls.style.display = "block";
   const deviceWidth = window.innerWidth;
-  gameBoard.width = Math.floor((deviceWidth - 6) / unitSize) * unitSize;
-  gameBoard.height = Math.floor((deviceWidth - 6) / unitSize) * unitSize;
+  gameBoard.width = Math.floor((deviceWidth - 26) / unitSize) * unitSize;
+  gameBoard.height = Math.floor((deviceWidth - 26) / unitSize) * unitSize;
 } else {
   gameSpeed = 100;
   unitSize = 25;

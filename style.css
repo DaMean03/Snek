@@ -7,6 +7,7 @@ body {
 }
 #gameContainer {
   text-align: center;
+  padding: 10px;
 }
 #gameBoard {
   border: 3px solid;
@@ -18,6 +19,10 @@ body {
 @media (max-width: 720px) {
   #scoreText {
     font-size: 50px;
+  }
+  #startBtn,
+  #resetBtn {
+    margin-right: 10px;
   }
 }
 #buttons {
@@ -35,12 +40,7 @@ body {
   border-radius: 15px;
   cursor: pointer;
 }
-@media (min-width: 720px) {
-  #startBtn,
-  #resetBtn {
-    margin-right: 10px;
-  }
-}
+
 #controls {
   position: relative;
   width: 150px;
