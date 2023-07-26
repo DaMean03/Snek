@@ -27,6 +27,8 @@ body {
 }
 #buttons {
   margin-inline: auto;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
   justify-content: center;
 }
