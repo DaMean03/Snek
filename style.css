@@ -20,16 +20,26 @@ body {
     font-size: 50px;
   }
 }
+#buttons {
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+}
 #startBtn,
 #resetBtn {
   font-family: "Permament Maker", cursive;
   font-size: 22px;
-  width: 100px;
+  width: 80px;
   height: 50px;
   border: 4px solid;
   border-radius: 15px;
   cursor: pointer;
-  margin-right: 10px;
+}
+@media (min-width: 720px) {
+  #startBtn,
+  #resetBtn {
+    margin-right: 10px;
+  }
 }
 #controls {
   position: relative;
@@ -38,7 +48,6 @@ body {
   background-color: gray;
   border: 2px solid;
   border-radius: 50%;
-  margin-inline: auto;
   display: none;
 }
 .btn {
